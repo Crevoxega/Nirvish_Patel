@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirvish - AI Solutions Architect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #213448;
+            --secondary: #547792;
+            --accent: #94B4C1;
+            --light: #EAE0CF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--primary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--light);
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--primary);
+            background: var(--light);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        .page-section {
+            min-height: 100vh;
+            padding: 6rem 1rem 3rem;
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--secondary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+        }
+
+        .photo-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-placeholder p {
+            font-size: 0.9rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .about-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .about-text {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .philosophy-card {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            margin-top: 2rem;
+        }
+
+        .philosophy-card .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .philosophy-card p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Timeline Card */
+        .timeline-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .timeline-badge {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-badge i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-status {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-status i {
+            margin-right: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Experience Cards */
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--accent);
+        }
+
+        .experience-card.active-project {
+            border-left-color: #2ecc71;
+            position: relative;
+        }
+
+        .exp-header {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .exp-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exp-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .exp-title-group h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .company {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .period {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .period i {
+            margin-right: 0.3rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #2ecc71;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .exp-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .achievements h4 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .achievements h4 i {
+            color: #f39c12;
+        }
+
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+        }
+
+        .achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        /* Expertise Grid */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .expertise-card {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .expertise-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .expertise-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .expertise-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .core-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .core-intro {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .expertise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .expertise-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .expertise-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expertise-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .expertise-text h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .expertise-text p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .services-intro {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card.featured {
+            border: 3px solid var(--secondary);
+        }
+
+        .service-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--light);
+            opacity: 0.5;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-desc {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features span {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-features i {
+            color: #2ecc71;
+        }
+
+        .service-video {
+            margin-top: 1.5rem;
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ff0000;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .video-link:hover {
+            background: #cc0000;
+            transform: translateX(5px);
+        }
+
+        .video-link i {
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section */
+        .contact-display {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+        }
+
+        .contact-hero i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero p {
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .contact-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-display-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-display-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+        }
+
+        .contact-card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-card-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .contact-display-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-display-card a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .contact-display-card a:hover {
+            color: var(--primary);
+        }
+
+        .contact-display-card p {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .contact-note {
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .social-connect-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .social-connect-section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-connect-section > p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .social-link-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .social-link-card.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+
+        .social-link-card.linkedin:hover {
+            background: #0077b5;
+            color: white;
+        }
+
+        .social-link-card.github:hover {
+            background: #333;
+            color: white;
+        }
+
+        .social-link-card.youtube:hover {
+            background: #ff0000;
+            color: white;
+        }
+
+        .social-link-card i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-link-card span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .social-link-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .availability-banner {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+
+        .availability-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .availability-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .availability-status i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .availability-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .availability-banner p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: var(--light);
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section i {
+            margin-right: 0.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--primary);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 0.5rem 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .timeline-card {
+                flex-direction: column;
+            }
+
+            .exp-header {
+                flex-direction: column;
+            }
+
+            .contact-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links-large {
+                grid-template-columns: 1fr;
+            }
+
+            .page-section {
+                padding: 5rem 0.5rem 2rem;
+            }
+
+            .contact-hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .availability-banner {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-section.active {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">NIRVISH</div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link active">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="page-section active">
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="profile-photo">
+                        <img src="image.png" alt="Nirvish" id="profilePhoto">
+
+                        <div class="photo-placeholder">
+                            <i class="fas fa-user"></i>
+                            <p>Add Your Photo</p>
+                        </div>
+                    </div>
+                    <h1 class="hero-title">AI Solutions Architect</h1>
+                    <h2 class="hero-subtitle">Full-Stack Developer</h2>
+                    <p class="hero-tagline">Engineering Autonomous Revenue Assets</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="section-title">Who I Am</h2>
+            <div class="about-content">
+                <p class="about-text">
+                    I am <strong>Nirvish</strong>, an AI Solutions Architect and Full-Stack Developer dedicated to engineering high-performance digital ecosystems. My work sits at the intersection of complex automation and human-centric design.
+                </p>
+                <p class="about-text">
+                    I don't just build websites or bots; I build <strong>autonomous revenue assets</strong> that solve specific business bottlenecks. With a core focus on integrity and technical precision, I help professionals in high-stakes industries—like Immigration and SaaS—establish digital authority through secure, scalable, and intelligent systems.
+                </p>
+            </div>
+
+            <div class="philosophy-card">
+                <h3 class="card-title">
+                    <i class="fas fa-lightbulb"></i> My Philosophy
+                </h3>
+                <p>
+                    Every project I undertake follows a <strong>'Security-First'</strong> and <strong>'No-False-Claims'</strong> policy. I provide transparent engineering—clear technical specifications, measurable ROI, and reliable performance.
+                </p>
+                <p>
+                    I am not a generalist; I am a specialist for those who require high-trust systems where failure is not an option. My goal is to enhance your operational clarity and give you back your time by automating the chaos.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered</h3>
+                    <p>Systems</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security-First</h3>
+                    <p>Architecture</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Full-Stack</h3>
+                    <p>Development</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="page-section">
+        <div class="container">
+            <h1 class="section-title">Experience & Education</h1>
+            <p style="text-align:center; color:var(--secondary); font-size:1.1rem; margin-bottom:3rem;">Building the Future, One System at a Time</p>
+
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> Education
+            </h2>
+            <div class="timeline-card">
+                <div class="timeline-badge">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="timeline-content">
+                    <h3>Diploma in Computer Engineering</h3>
+                    <p class="timeline-status">
+                        <i class="fas fa-circle-notch fa-spin"></i> Currently Pursuing
+                    </p>
+                    <p class="timeline-desc">
+                        Mastering foundational and advanced computer science concepts with hands-on experience in software development, system architecture, and modern technologies.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top:3rem;">
+                <i class="fas fa-briefcase"></i> Work Experience
+            </h2>
+
+            <!-- Role 1 -->
+            <div class="experience-card active-project">
+                <div class="exp-header">
+                    <div class="exp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="exp-title-group">
+                        <h3>Lead Backend & AI Developer</h3>
+                        <p class="company">Crevoxega (Self-Employed)</p>
+                        <p class="period">
+                            <i class="fas fa-calendar-alt"></i> January 2024 – Present
+                        </p>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+                <p class="exp-description">
+                    Engineered a comprehensive WhatsApp Business automation ecosystem using Python (FastAPI) and Meta's Graph API. Developed a custom RAG (Retrieval-Augmented Generation) architecture to enable context-aware AI responses for businesses.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">WhatsApp API</span>
+                    <span class="tech-tag">AES-128</span>
+                    <span class="tech-tag">JWT</span>
+                </div>
+                <div class="achievements">
+                    <h4><i class="fas fa-star"></i> Key Achievements</h4>
+                    <ul>
+                        <li>Implemented enterprise-grade security (AES-128, JWT)</li>
+                        <li>Deployed automation for restaurants, bakeries & retail</li>
+                        <li>Streamlined order processing and customer support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div class="exp-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="exp-title-group">
+                        <h3>Systems Architect</h3>
+                        <p class="company">Independent Specialist</p>
+                        <p class="period">
+                            <i class="fas fa-calendar-alt"></i> June 2024 – Present
+                        </p>
+                    </div>
+                </div>
+                <p class="exp-description">
+                    Architected a secure, scalable CRM automation engine integrated with Firebase/Firestore. Developed a background task manager that monitors customer lifecycles and triggers automated renewal notifications via WhatsApp API.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Firestore</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Async Processing</span>
+                    <span class="tech-tag">WhatsApp API</span>
+                </div>
+                <div class="achievements">
+                    <h4><i class="fas fa-star"></i> Key Achievements</h4>
+                    <ul>
+                        <li>Designed and implemented a secure, scalable CRM automation engine</li>
+                        <li>Implemented high-concurrency asynchronous processing</li>
+                        <li>Developed a background task manager for lifecycle monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="experience-card active-project">
+                <div class="exp-header">
+                    <div class="exp-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="exp-title-group">
+                        <h3>Full-Stack AI Engineer</h3>
+                        <p class="company">Project-Based / Freelance</p>
+                        <p class="period">
+                            <i class="fas fa-calendar-alt"></i> August 2024 – December 2024
+                        </p>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+                <p class="exp-description">
+                    Designed and deployed an AI-powered chat widget for professional portfolio websites. The system utilizes Large Language Models (LLMs) to qualify leads in real-time and provide instant technical support.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">RESTful API</span>
+                    <span class="tech-tag">Thread-Safe Caching</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="achievements">
+                    <h4><i class="fas fa-star"></i> Key Achievements</h4>
+                    <ul>
+                        <li>Optimized for low-latency performance</li>
+                        <li>Built 24/7 digital assistant for client engagement</li>
+                        <li>Automated initial client inquiries and lead qualification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top:3rem;">Technical Stack</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <i class="fas fa-server"></i>
+                    <h3>Backend</h3>
+                    <p>FastAPI, Python, Firebase</p>
+                </div>
+                <div class="expertise-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Database</h3>
+                    <p>Firebase, Firestore</p>
+                </div>
+                <div class="expertise-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security</h3>
+                    <p>AES-128, JWT, Rate Limiting</p>
+                </div>
+                <div class="expertise-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI/ML</h3>
+                    <p>RAG, LLMs, Gemini API</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="page-section">
+        <div class="container">
+            <h1 class="section-title">What I Offer</h1>
+            <p style="text-align:center; color:var(--secondary); font-size:1.1rem; margin-bottom:3rem;">Specialized Solutions for High-Stakes Industries</p>
+
+            <h2 class="section-title">Core Expertise & Technical Stack</h2>
+            <div class="core-card">
+                <p class="core-intro">
+                    My expertise is built on a foundation of modern engineering principles. I specialize in developing robust backends using <strong>FastAPI</strong> and <strong>Python</strong>, ensuring every system is fast, secure, and ready to scale.
+                </p>
+                <div class="expertise-list">
+                    <div class="expertise-item">
+                        <div class="expertise-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="expertise-text">
+                            <h4>AI & RAG Systems</h4>
+                            <p>Designing custom Retrieval-Augmented Generation (RAG) agents that utilize private data to provide cited, accurate support without hallucinations.</p>
+                        </div>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="expertise-text">
+                            <h4>Data Security</h4>
+                            <p>Implementing industry-standard AES-128 bit encryption and JWT (JSON Web Tokens) to protect intellectual property and sensitive client documentation.</p>
+                        </div>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="expertise-text">
+                            <h4>Real-time Integration</h4>
+                            <p>Leveraging Firebase for state-aware memory and WhatsApp Business API for seamless, automated client communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top:3rem;">The Triple Pillar</h2>
+            <p class="services-intro">Three specialized service categories designed to work in harmony or as standalone solutions</p>
+
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <div class="service-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>High-Authority Portfolios</h3>
+                <p class="service-desc">
+                    Specialized digital 'Proof of Work' platforms for Visa applicants and Immigration consultants. These sites are engineered with psychological trust-triggers and lead-qualifying logic.
+                </p>
+                <div class="service-features">
+                    <span><i class="fas fa-check"></i> Trust-optimized design</span>
+                    <span><i class="fas fa-check"></i> Lead qualification systems</span>
+                    <span><i class="fas fa-check"></i> Professional credibility boost</span>
+                    <span><i class="fas fa-check"></i> SEO & performance optimized</span>
+                </div>
+                <div class="service-video">
+                    <a href="https://youtube.com/@nirvishpatel_47?si=ueTfU8oCgA7-tcic" target="_blank" class="video-link">
+                        <i class="fab fa-youtube"></i> Watch Demo Video
+                    </a>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <div class="service-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Intelligent Onboarding Widgets</h3>
+                <p class="service-desc">
+                    RAG-powered AI assistants that sit inside SaaS dashboards or membership areas to guide users and reduce support tickets.
+                </p>
+                <div class="service-features">
+                    <span><i class="fas fa-check"></i> 24/7 instant support</span>
+                    <span><i class="fas fa-check"></i> Context-aware responses</span>
+                    <span><i class="fas fa-check"></i> Reduces support workload</span>
+                    <span><i class="fas fa-check"></i> Real-time lead qualification</span>
+                </div>
+                <div class="service-video">
+                    <a href="https://youtu.be/NawqfX3og50" target="_blank" class="video-link">
+                        <i class="fab fa-youtube"></i> Watch Demo Video
+                    </a>
+                </div>
+            </div>
+ 
+            <!-- Service 3 -->
+            <div class="service-card featured">
+                <div class="service-number">03</div>
+                <div class="service-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3>WhatsApp Automation Engines</h3>
+                <p class="service-desc">
+                    End-to-end automation for lead extraction, appointment booking, and customer support, moving your business to where your clients are most active.
+                </p>
+                <div class="service-features">
+                    <span><i class="fas fa-check"></i> Automated lead capture</span>
+                    <span><i class="fas fa-check"></i> Smart appointment booking</span>
+                    <span><i class="fas fa-check"></i> Order processing automation</span>
+                    <span><i class="fas fa-check"></i> Customer lifecycle management</span>
+                </div>
+                <div class="service-video">
+                    <a href="https://youtube.com/shorts/YROkTp6ELI0?feature=share" target="_blank" class="video-link">
+                        <i class="fab fa-youtube"></i> Watch Demo Video
+                    </a>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2>Ready to Build Your Autonomous System?</h2>
+                    <p>Let's discuss how I can help you automate your business operations</p>
+                    <a href="#contact" class="cta-button nav-link">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page-section">
+        <div class="container">
+            <h1 class="section-title">Let's Connect</h1>
+            <p style="text-align:center; color:var(--secondary); font-size:1.1rem; margin-bottom:3rem;">Transform Your Business with Intelligent Automation</p>
+
+            <div class="contact-display">
+                <div class="contact-hero">
+                    <i class="fas fa-handshake"></i>
+                    <h2>Ready to Build Your Autonomous System?</h2>
+                    <p>Let's discuss how I can help you automate your business operations</p>
+                </div>
+
+                <div class="contact-cards-grid">
+                    <div class="contact-display-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Me</h3>
+                        <a href="mailto:your@email.com">crevoxega.contact@gmail.com</a>
+                        <p class="contact-note">I typically respond within 24 hours</p>
+                    </div>
+
+                    <div class="contact-display-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Call Me</h3>
+                        <a href="tel:+918511150215">+91-8511150215</a>
+                        <p class="contact-note">Available for consultation calls</p>
+                    </div>
+
+                    <div class="contact-display-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Location</h3>
+                        <p>Gandhinagar, Gujarat</p>
+                        <p>India</p>
+                    </div>
+                </div>
+
+                <div class="social-connect-section">
+                    <h2>Connect on Social Media</h2>
+                    <p>Follow my journey and stay updated with my latest projects</p>
+                    <div class="social-links-large">
+                        <a href="https://www.instagram.com/nirvishpatel_?igsh=eWdkYWdtMjZuamJr" target="_blank" class="social-link-card instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                            <p>Visual Updates & Stories</p>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nirvish-patel-79653a304?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-link-card linkedin">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                            <p>Professional Updates</p>
+                        </a>
+                        <a href="https://github.com/Nirvishpatel47" target="_blank" class="social-link-card github">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                            <p>Code & Projects</p>
+                        </a>
+                        <a href="https://youtube.com/@nirvishpatel_47?si=ueTfU8oCgA7-tcic" target="_blank" class="social-link-card youtube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                            <p>Demo Videos & Tutorials</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="availability-banner">
+                    <div class="availability-content">
+                        <div class="availability-status">
+                            <i class="fas fa-circle"></i>
+                            <span>Currently Available</span>
+                        </div>
+                        <h3>Accepting New Projects</h3>
+                        <p>I'm currently available for new automation projects and consulting work. Let's build something amazing together!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/nirvishpatel_?igsh=eWdkYWdtMjZuamJr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/nirvish-patel-79653a304?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Nirvishpatel47" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://youtube.com/@nirvishpatel_47?si=ueTfU8oCgA7-tcic" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> crevoxega.contact@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91-8511150215</p>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Nirvish. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.page-section');
+
+        // Toggle mobile menu
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Handle navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                link.classList.add('active');
+
+                // Close mobile menu
+                navMenu.classList.remove('active');
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Smooth scroll for CTA button
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        // Hide all sections
+                        sections.forEach(section => {
+                            section.classList.remove('active');
+                        });
+
+                        // Show target section
+                        targetSection.classList.add('active');
+
+                        // Update active nav link
+                        navLinks.forEach(navLink => {
+                            navLink.classList.remove('active');
+                            if (navLink.getAttribute('href') === href) {
+                                navLink.classList.add('active');
+                            }
+                        });
+
+                        // Scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://crevoxega-1-501658036383.asia-south1.run.app/widget.js" data-client="dPmHlP5xDjg8MAYqmAqj7599p-Brd9ARRmstDO1J0no"></script>
+</body>
+</html>
